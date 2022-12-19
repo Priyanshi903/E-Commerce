@@ -1,0 +1,53 @@
+package com.cognizant;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
+import java.util.Optional;
+
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
+
+import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite.SuiteClasses;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import com.cognizant.controller.test.VendorControllerTest;
+import com.cognizant.controller.test.VendorStockControllerTest;
+import com.cognizant.exception.VendorNotFoundException;
+import com.cognizant.model.Vendor;
+import com.cognizant.repository.VendorRepository;
+import com.cognizant.service.VendorService;
+import com.cognizant.service.test.VendorServiceTest;
+import com.cognizant.service.test.VendorStockServiceTest;
+
+@SpringBootTest
+@ComponentScan("com.*")
+public class VendorRestApplicationTests {
+
+	@Test
+	public void contextLoads() {
+	}
+
+	@MockBean
+	private VendorRepository vendorRepo;
+
+	@Autowired
+	private VendorService vendorService;
+	
+
+	@Test
+	public void testGetVendorByVendorId() throws VendorNotFoundException {
+		Vendor vendor = new Vendor("001", "siva", 60, 5);
+		when(vendorRepo.findById("001")).thenReturn(Optional.of(vendor));
+		assertEquals(vendorService.getVendorById("001").getVendor_name(), vendor.getVendor_name());
+	}
+	
+	
+}

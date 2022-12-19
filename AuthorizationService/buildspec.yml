@@ -1,0 +1,30 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      java: corretto8
+  pre_build:
+    commands:
+      - echo Logging in to amazon ECR...
+      - $(aws ecr get-login --no-include-email --region $AWS_REGION)
+  build:
+    commands:
+      - echo Build started on 'date'
+      - echo Building java
+      - cd  AuthorizationService
+      - mvn clean compile
+      - mvn package
+      - echo printing docker version
+      - docker version
+      - echo printing docker information
+      - docker info
+      - echo Building the Docker image
+      - docker build -t auth-service-registry:latest .
+      - docker tag auth-service-registry:latest 313830654669.dkr.ecr.eu-west-2.amazonaws.com/pod2:auth
+  post_build:
+    commands:
+      - docker push 313830654669.dkr.ecr.eu-west-2.amazonaws.com/pod2:auth
+      - printf '[{"name":"auth-container","imageUri":"%s"}]' 313830654669.dkr.ecr.eu-west-2.amazonaws.com/pod2:auth > taskdefinition.json
+artifacts:
+  files:
+    - AuthorizationService/taskdefinition.json

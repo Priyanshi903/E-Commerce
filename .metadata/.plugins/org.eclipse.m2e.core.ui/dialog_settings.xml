@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="MavenProjectImportWizardPage">
+		<list key="rootDirectory">
+			<item value="C:\Training\pod\Product"/>
+			<item value="C:\pod\AuthorizationService"/>
+			<item value="C:\pod\E-Commerce-Portal"/>
+			<item value="C:\pod\Vendor-Rest"/>
+			<item value="C:\Users\2063360\Downloads\RPM-Microservices-Project-main-20220214T081658Z-001"/>
+			<item value="C:\pod\Entities\src\main\java\com\cognizant\model\Vendor.java"/>
+			<item value="C:\pod\Cart"/>
+			<item value="C:\pod\Entities"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+	</section>
+	<section name="org.eclipse.m2e.core.pom.overview">
+	</section>
+	<section name="org.eclipse.m2e.core.pom.dependencies">
+	</section>
+</section>

@@ -1,0 +1,131 @@
+package com.cognizant.service;
+
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.cognizant.exception.VendorNotFoundException;
+import com.cognizant.model.Vendor;
+import com.cognizant.model.VendorStock;
+import com.cognizant.repository.VendorRepository;
+import com.cognizant.repository.VendorStockRepository;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Service
+@Slf4j
+public class VendorService {
+
+	@Autowired
+	private VendorRepository vendorRepo;
+
+	@Autowired
+	private VendorStockRepository vendorStockRepo;
+
+	// get list of all vendors
+	public List<Vendor> findAllVendors() {
+		log.info("get All Vendors");
+		return vendorRepo.findAll();
+	}
+
+	// get vendors by id
+	public Vendor getVendorById(String vendor_id) throws VendorNotFoundException {
+		Vendor vendor = vendorRepo.findById(vendor_id).orElse(null);
+		if (vendor != null) {
+			log.info("vendor found");
+			return vendor;
+		} else {
+			log.error("vendor not found");
+			throw new VendorNotFoundException("vendor with vendor_id:" + vendor_id + " not found");
+		}
+	}
+
+	// create new vendor
+	public Vendor createVendor(Vendor vendor) {
+		vendorRepo.saveAndFlush(vendor);
+		log.info("vendor created");
+		return vendor;
+	}
+
+	// deletes vendor if existed
+	public void deleteVendor(String vendor_id) {
+		if (vendor_id != null) {
+			vendorRepo.deleteById(vendor_id);
+			log.info("vendor deleted");
+		}
+	}
+
+	// modifies vendor
+	public void modifyVendor(String vendor_id, Vendor vendor) {
+		log.info("start");
+		for (Vendor v : findAllVendors()) {
+			if (v.getVendor_id().equalsIgnoreCase(vendor_id)) {
+				v.setVendor_name(vendor.getVendor_name());
+				v.setDelivery_charge(vendor.getDelivery_charge());
+				v.setRating(vendor.getRating());
+			}
+			vendorRepo.save(vendor);
+			log.info("vendor modified successfully");
+		}
+		log.info("end");
+	}
+
+	// search all vendors with given product_id
+	public Vendor getVendorDetails(String product_id, int quantity) {
+		log.info("getting vendors with product_id and quantity");
+
+		List<String> vendorlist = vendorStockRepo.getVendorDetails(product_id, quantity);
+		if (vendorlist.isEmpty()) {
+			return new Vendor();
+		}
+		int max = 0;
+		Vendor vendorToBeReturned = new Vendor();
+		for (String vendorid : vendorlist) {
+
+			Vendor vendor = vendorRepo.findById(vendorid).orElse(null);
+			if (vendor.getRating() > max) {
+				vendorToBeReturned = vendor;
+				max=vendor.getRating();
+				if (vendor.getRating() == 5) {
+					return vendorToBeReturned;
+				}
+			}
+		}
+
+		log.info("vendor:::::::::::::::::::::::::::{}", vendorToBeReturned);
+		return vendorToBeReturned;
+	}
+
+	// search one vendor with given product_id with highest rating
+	public Vendor getVendorDetailsByProductId(String product_id) throws VendorNotFoundException {
+		log.info("getting vendors with product_id");
+//			BeanUtils.copyProperties(vendorStockRepo, vendorRepo);
+		for (VendorStock vs : vendorStockRepo.findAll()) {
+			if (vs.getVendorStockPk().getProduct_id().equalsIgnoreCase(product_id)) {
+				log.info("vendor found");
+				if (vs.getStock_in_hand() > 0) {
+					return vendorRepo.getById(product_id);
+				} else {
+					log.error("stock not available");
+					throw new VendorNotFoundException("Stock is not available for product Id:" + product_id);
+
+				}
+			} else {
+				log.info("vendor_id does not exist");
+				throw new VendorNotFoundException("No vendor available for given product_id:" + product_id);
+			}
+		}
+		return null;
+	}
+
+	public Vendor rating(int rating) {
+		Vendor vendor = (Vendor) vendorRepo.findAll();
+		for (int i = 5; i >= 1; i--) {
+			if (rating == i) {
+				return vendor;
+			}
+		}
+		return null;
+	}
+
+}

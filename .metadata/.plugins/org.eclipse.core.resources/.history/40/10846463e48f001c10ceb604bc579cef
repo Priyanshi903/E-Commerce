@@ -1,0 +1,15 @@
+package com.cognizant.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import com.cognizant.model.Vendor;
+import com.cognizant.model.VendorStock;
+import com.cognizant.model.VendorStockPk;
+
+@Repository
+public interface VendorStockRepository extends JpaRepository<VendorStock, VendorStockPk> {
+	@Query("SELECT v.vendor_id FROM VendorStock v WHERE v.stock_in_hand>=?2 and v.product_id=?1 LIMIT 1")
+	public String getVendorDetails(String product_id,int quantity);
+}

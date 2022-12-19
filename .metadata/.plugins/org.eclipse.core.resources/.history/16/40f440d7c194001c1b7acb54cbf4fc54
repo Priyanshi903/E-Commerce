@@ -1,0 +1,33 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      docker: 18
+  pre_build:
+    commands:
+      - echo "Pre_build"
+      - echo "Logging in to Amazon ECR"
+      - $(aws ecr get-login  --no-include-email --region us-east-1)
+  build:
+    commands:
+      - echo "Build"
+      - echo "Entered build phase"
+      - echo "Building Java"
+      - cd  StudentService
+      - mvn install
+      - mvn clean compile
+      - mvn package -DskipTests
+      - docker build -t vendor-service:latest .
+      - docker tag vendor-service:latest 313830654669.dkr.ecr.ap-south-1.amazonaws.com/vendor-repo-ecr:vendor
+
+  post_build:
+    commands:
+      - echo "Post_build"
+      - docker push 313830654669.dkr.ecr.ap-south-1.amazonaws.com/vendor-repo-ecr:vendor
+      - printf '[{"name":"vendor-container","imageUri":"%s"}]' 313830654669.dkr.ecr.ap-south-1.amazonaws.com/vendor-repo-ecr > taskdefinition.json
+      - cat taskdefinition.json
+
+artifacts:
+  files:
+    - Vendor-Rest/taskdefinition.json

@@ -1,0 +1,20 @@
+1644842836566	Rename package 'com.cognizant.feign'
+1644842851795	Rename type 'ProductFeign'
+1644843979231	Delete element
+1644844227403	Delete element
+1644845403278	Rename type 'UserCartDto'
+1644847539955	Rename local variable 'date'
+1644852898014	Move compilation unit
+1644855846769	Rename local variable 'customerWishlist'
+1644856793255	Rename local variable 'cuWishlistResponseDto'
+1645011509114	Delete element
+1645016961538	Delete element
+1645036861377	Rename type 'CustomerWishlistController'
+1645037563371	Rename local variable 'customerWishList'
+1645037591028	Rename local variable 'jsonCustomerWishList'
+1645108752253	Copy compilation unit
+1645108768373	Copy compilation unit
+1645108954553	Copy compilation unit
+1645109466114	Copy compilation unit
+1645190166495	Copy package
+1645190204407	Copy compilation unit

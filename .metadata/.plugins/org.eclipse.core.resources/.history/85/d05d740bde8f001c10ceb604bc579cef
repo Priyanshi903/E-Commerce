@@ -1,0 +1,87 @@
+package com.cognizant.controller;
+
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.cognizant.exception.VendorNotFoundException;
+import com.cognizant.model.Vendor;
+import com.cognizant.service.VendorService;
+import com.cognizant.service.VendorStockService;
+
+import io.swagger.v3.oas.annotations.Operation;
+
+@RestController
+@RequestMapping("/vendor")
+public class VendorController {
+
+	private Logger logger = LoggerFactory.getLogger(VendorController.class);
+
+	@Autowired
+	private VendorService vendorService;
+	
+	@Autowired
+	private VendorStockService vendorStockService;
+
+	@GetMapping
+	@Operation(summary = "get the list of all vendors")
+	public List<Vendor> findAllVendors() {
+		return vendorService.findAllVendors();
+	}
+
+	@GetMapping("/{vendor_id}")
+	@Operation(summary = "get the list of vendors by vendor_id")
+	public Vendor getVendorById(@PathVariable String vendor_id) throws VendorNotFoundException {
+		logger.info("list of vendors by id");
+		// get list of vendors by id
+		return vendorService.getVendorById(vendor_id);
+	}
+
+	@GetMapping("/product/{product_id}")
+	@Operation(summary = "get vendor details by product_id")
+	public List<Vendor> getVendorDetails(@PathVariable String product_id) throws VendorNotFoundException {
+		logger.info("vendor details using id");
+		vendorStockService.findByProduct_id(product_id);
+		return vendorService.findAllVendors();
+	}
+
+	@PutMapping
+	@Operation(summary = "used to modify the vendor")
+	public List<Vendor> modifyVendor(@RequestBody @Valid Vendor vendor) {
+		// used to modify vendor
+		vendorService.modifyVendor(vendor.getVendor_id(), vendor);
+		logger.info("vendor modified");
+		return vendorService.findAllVendors();
+	}
+
+	@PostMapping
+	@Operation(summary = "Creates a new vendor")
+	public String createVendor(@RequestBody Vendor vendor) {
+		// modify vendor
+		vendorService.createVendor(vendor);
+		logger.info("vendor created");
+		return "Vendor Created";
+	}
+
+	@DeleteMapping("/{vendor_id}")
+	@Operation(summary = "Deletes vendor by vendor_id")
+	public String deleteVendorById(@PathVariable String vendor_id) {
+		// delete vendor
+		vendorService.deleteVendor(vendor_id);
+		logger.info("vendor deleted");
+		return "Vendor with vendor_id:" + vendor_id + " Deleted";
+	}
+
+}

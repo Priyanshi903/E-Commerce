@@ -1,0 +1,59 @@
+package com.cognizant.service.test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
+import java.util.Optional;
+
+import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringRunner;
+
+
+import com.cognizant.VendorRestApplicationTests;
+import com.cognizant.exception.VendorNotFoundException;
+import com.cognizant.model.Vendor;
+import com.cognizant.model.VendorStock;
+import com.cognizant.repository.VendorRepository;
+import com.cognizant.repository.VendorStockRepository;
+import com.cognizant.service.VendorService;
+
+@RunWith(SpringRunner.class)
+@WebMvcTest({ VendorService.class })
+public class VendorServiceTest extends VendorRestApplicationTests {
+
+	@MockBean
+	private VendorRepository vendorRepo;
+
+	@Autowired
+	private VendorService vendorService;
+
+	@MockBean
+	private VendorService vendorServiceMock;
+		
+	@MockBean
+	private VendorStockRepository vendorStockRepo;
+
+	@Test
+	public void contextLoads() {
+	}
+
+	@Test
+	public void testGetVendorByVendorId() throws VendorNotFoundException {
+		Vendor vendor = new Vendor("001", "Siva", 30, 4);
+		VendorStock vendorStock = new VendorStock(10, 3, 3, 144, LocalDate.of(2021, 12, 11));
+		List<Long> vendorIdList = Arrays.asList(1l);
+		long productId = 1;
+		int quantity = 2;
+		when(vendorStockRepository.getVendorIds(productId, quantity)).thenReturn(vendorIdList);
+		when(vendorStockRepository.isProductAvailable(productId)).thenReturn(vendorIdList);
+		when(vendorStockService.getMaxQuantity(productId)).thenReturn(10l);
+		when(vendorService.findByVendorId(1l)).thenReturn(vendor);
+		when(vendorStockRepository.getVendorStock(productId, 1l)).thenReturn(vendorStock);
+		assertEquals(1l, vendorStockService.getVendor(productId, quantity).getVendorId());
+	}
+
+}

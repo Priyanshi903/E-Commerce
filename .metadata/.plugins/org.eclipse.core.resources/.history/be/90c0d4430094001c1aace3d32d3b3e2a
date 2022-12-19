@@ -1,0 +1,32 @@
+version: 0.2
+ 
+phases:
+  install:
+    runtime-versions:
+      java: corretto8
+      docker: 18
+  pre_build:
+    commands:
+      - echo "Pre_build"
+      - echo "Logging in to Amazon ECR"
+      - $(aws ecr get-login  --no-include-email --region ap-south-1)
+  build:
+    commands:
+      - echo "Build"
+      - echo "Entered build phase"
+      - echo "Building Java"
+      - cd  Product-Microservice
+      - mvn -DskipTests clean package
+      - docker build -t product-rest:latest .
+      - docker tag product-rest:latest 313830654669.dkr.ecr.ap-south-1.amazonaws.com/testecrrepo:product
+ 
+  post_build:
+    commands:
+      - echo "Post_build"
+      - docker push 313830654669.dkr.ecr.ap-south-1.amazonaws.com/testecrrepo:product
+      - printf '[{"name":"product-container","imageUri":"%s"}]' 313830654669.dkr.ecr.ap-south-1.amazonaws.com/testecrrepo > taskdefinition.json
+      - cat taskdefinition.json
+ 
+artifacts:
+  files:
+    - Product-Microservice/taskdefinition.json

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;vendorlist&apos; in &apos;com.cognizant.service.VendorService.getVendorDetails(...)&apos; to &apos;vendorlistIds&apos;&#x0D;&#x0A;- Original project: &apos;Vendor-Rest&apos;&#x0D;&#x0A;- Original element: &apos;com.cognizant.service.VendorService.getVendorDetails(String, int).vendorlist&apos;&#x0D;&#x0A;- Renamed element: &apos;vendorlist&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename local variable &apos;vendorlist&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.cognizant.service{VendorService.java[VendorService~getVendorDetails~QString;~I@vendorlist!2132!2212!2145!2154!QList\&lt;QString;&gt;;!0!false" name="vendorlistIds" references="true" stamp="1645102186583" version="1.0"/>
+</session>

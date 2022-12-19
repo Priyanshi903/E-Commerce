@@ -1,0 +1,125 @@
+package com.cognizant.service.test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
+import java.util.Optional;
+
+import javax.persistence.EntityManager;
+
+import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringRunner;
+
+
+import com.cognizant.VendorRestApplicationTests;
+import com.cognizant.exception.VendorNotFoundException;
+import com.cognizant.model.Vendor;
+import com.cognizant.repository.VendorRepository;
+import com.cognizant.repository.VendorStockRepository;
+import com.cognizant.service.VendorService;
+
+@RunWith(SpringRunner.class)
+@WebMvcTest({ VendorService.class })
+public class VendorServiceTest extends VendorRestApplicationTests {
+
+	@MockBean
+	private VendorRepository vendorRepo;
+
+	@Autowired
+	private VendorService vendorService;
+
+	@MockBean
+	private VendorService vendorServiceMock;
+		
+	@MockBean
+	private VendorStockRepository vendorStockRepo;
+
+	@Test
+	public void contextLoads() {
+	}
+
+	@Test
+	public void testGetVendorByVendorId() throws VendorNotFoundException {
+		Vendor vendor = new Vendor("001", "siva", 60, 5);
+		when(vendorRepo.findById("001")).thenReturn(Optional.of(vendor));
+		assertEquals(vendorService.getVendorById("001").getVendor_name(), vendor.getVendor_name());
+	}
+
+
+
+	@Test
+	public void testFindNoVendorWhenRepoIsEmpty() {
+		Iterable<Vendor> vendors = vendorService.findAllVendors();
+		assertThat(vendors).isEmpty();
+	}
+
+	@Test
+	public void testFindAllVendors() {
+		Vendor vendor1 = new Vendor("001", "siva", 60, 5);
+		entityManager.persist(vendor1);
+		Vendor vendor2 = new Vendor("002", "siva2", 30, 5);
+		entityManager.persist(vendor2);
+		Vendor vendor3 = new Vendor("003", "siva3", 40, 5);
+		entityManager.persist(vendor3);
+		Iterable<Vendor> tutorials = vendorService.findAllVendors();
+		assertThat(tutorials).hasSize(3).contains(vendor1, vendor2, vendor3);
+	}
+
+	@Test
+	public void testFindVendorByVendorId() throws VendorNotFoundException {
+		Vendor vendor1 = new Vendor("001", "siva", 60, 5);
+		entityManager.persist(vendor1);
+		Vendor vendor2 = new Vendor("002", "siva2", 30, 5);
+		entityManager.persist(vendor2);
+		Vendor foundVendor = vendorService.getVendorById(vendor2.getVendor_id());
+		assertThat(foundVendor).isEqualTo(vendor2);
+	}
+
+	@Test
+	public void testCreateNewVendor() {
+		Vendor vendor = vendorService.createVendor(new Vendor("001", "siva", 60, 5));
+		assertThat(vendor).hasFieldOrPropertyWithValue("vendor_id", "001");
+		assertThat(vendor).hasFieldOrPropertyWithValue("vendor_name", "siva");
+		assertThat(vendor).hasFieldOrPropertyWithValue("delivery_charge", 60);
+		assertThat(vendor).hasFieldOrPropertyWithValue("rating", 5);
+	}
+
+	@Test
+	public void testModifyExistingVendor() throws VendorNotFoundException {
+		Vendor vendor1 = new Vendor("001", "siva", 60, 5);
+		entityManager.persist(vendor1);
+		Vendor vendor2 = new Vendor("002", "siva2", 30, 5);
+		entityManager.persist(vendor2);
+		Vendor updateVendor = new Vendor("updated 002", "updated siva2", 30, 5);
+		Vendor vendor = vendorService.getVendorById(vendor2.getVendor_id());
+		vendor.setVendor_id(updateVendor.getVendor_id());
+		vendor.setVendor_name(updateVendor.getVendor_id());
+		vendor.setDelivery_charge(updateVendor.getDelivery_charge());
+		vendor.setRating(updateVendor.getRating());
+		vendorService.createVendor(vendor);
+		Vendor checkVendor = vendorService.getVendorById(vendor2.getVendor_id());
+		assertThat(checkVendor.getVendor_id()).isEqualTo(vendor2.getVendor_id());
+		assertThat(checkVendor.getVendor_name()).isEqualTo(vendor2.getVendor_name());
+		assertThat(checkVendor.getVendor_name()).isEqualTo(vendor2.getVendor_name());
+		assertThat(checkVendor.getDelivery_charge()).isEqualTo(vendor2.getDelivery_charge());
+		assertThat(checkVendor.getRating()).isEqualTo(vendor2.getRating());
+	}
+
+	@Test
+	public void testDeleteVendorById() {
+		Vendor vendor1 = new Vendor("001", "siva", 60, 5);
+		entityManager.persist(vendor1);
+		Vendor vendor2 = new Vendor("002", "siva2", 30, 5);
+		entityManager.persist(vendor2);
+		Vendor vendor3 = new Vendor("003", "siva3", 40, 5);
+		entityManager.persist(vendor3);
+		vendorService.deleteVendor(vendor2.getVendor_id());
+		Iterable<Vendor> vendors = vendorService.findAllVendors();
+		assertThat(vendors).hasSize(2).contains(vendor1, vendor3);
+	}
+}

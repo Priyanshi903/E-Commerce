@@ -1,0 +1,53 @@
+package com.cognizant.service.test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.Date;
+
+import javax.persistence.EntityManager;
+
+import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+
+import com.cognizant.model.VendorStock;
+import com.cognizant.model.VendorStockPk;
+import com.cognizant.repository.VendorStockRepository;
+import com.cognizant.service.VendorStockService;
+
+public class VendorStockServiceTest {
+
+	private Logger logger = LoggerFactory.getLogger(VendorServiceTest.class);
+
+	@MockBean
+	private VendorStockRepository vendorStockRepo;
+
+	@Autowired
+	private VendorStockService vendorStockService;
+
+	@Autowired
+	private EntityManager entityManager;
+
+	@Test
+	public void contextLoads() {
+	}
+
+
+//	@Test
+//	public void testFindAllVendorStock() {
+//		logger.info("Creating vendorStock obj");
+//		VendorStock vendorStock1 = new VendorStock(new VendorStockPk("001", "001"), 150, new Date(03 / 03 / 2022));
+//		entityManager.persist(vendorStock1);
+//		VendorStock vendorStock2 = new VendorStock(new VendorStockPk("002", "002"), 350, new Date(03 / 03 / 2022));
+//		entityManager.persist(vendorStock2);
+//		VendorStock vendorStock3 = new VendorStock(new VendorStockPk("003", "003"), 50, new Date(03 / 03 / 2022));
+//		entityManager.persist(vendorStock3);
+//		VendorStock vendorStock3 = new VendorStock(new VendorStockPk("005", "005"), 34, 03/05/2022);
+//		logger.info("vendroStock obj created");
+//		Iterable<VendorStock> vendorStock = vendorStockService.findAllVendorStock();
+//		assertThat(vendorStock).hasSize(3).contains(vendorStock1, vendorStock2, vendorStock3);
+//
+//	}
+}

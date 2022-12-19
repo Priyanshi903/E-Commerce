@@ -1,0 +1,29 @@
+package com.cognizant.model;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "rating")
+public class Rating {
+	
+	@Id
+	private String customer_email;
+	
+	@Id
+	private String product_id;
+	
+	//range(1 to 5)
+	private int product_rating;
+	
+	
+
+}

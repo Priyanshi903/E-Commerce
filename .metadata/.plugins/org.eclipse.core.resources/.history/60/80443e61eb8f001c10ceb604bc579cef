@@ -1,0 +1,33 @@
+package com.cognizant;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
+import java.util.Optional;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.ComponentScan;
+import com.cognizant.exception.VendorNotFoundException;
+import com.cognizant.model.Vendor;
+import com.cognizant.repository.VendorRepository;
+import com.cognizant.service.VendorService;
+
+@SpringBootTest
+@ComponentScan("com.*")
+public class VendorRestApplicationTests {
+
+	@Test
+	public void contextLoads() {
+	}
+
+	@MockBean
+	private VendorRepository vendorRepo;
+
+	@Autowired
+	private VendorService vendorService;
+	
+	
+}

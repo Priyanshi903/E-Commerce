@@ -1,0 +1,29 @@
+-- dummy data for vendor
+
+INSERT INTO vendor(vendor_id,vendor_name,delivery_charge,rating) VALUES ('001', 'siva', 30, 5);
+INSERT INTO vendor(vendor_id,vendor_name,delivery_charge,rating) VALUES ('002', 'priyanshi', 60, 5);
+INSERT INTO vendor(vendor_id,vendor_name,delivery_charge,rating) VALUES ('003', 'chandrakanth', 80, 5);
+INSERT INTO vendor(vendor_id,vendor_name,delivery_charge,rating) VALUES ('004', 'jessee', 40, 5);
+
+-- dummy data for vendor_stock
+
+INSERT INTO vendor_stock VALUES ('product-010', '001', 24, 26/02/2022);
+INSERT INTO vendor_stock VALUES ('product-011', '002', 30, 28/02/2022);
+INSERT INTO vendor_stock VALUES ('product-012', '003', 23, 03/03/2022);
+INSERT INTO vendor_stock VALUES ('product-013', '004', 14, 26/05/2022);
+INSERT INTO vendor_stock VALUES ('product-014', '001', 0, 26/06/2022);
+INSERT INTO vendor_stock VALUES ('product-015', '002', 74, 21/03/2022);
+INSERT INTO vendor_stock VALUES ('product-016', '003', 20, 14/03/2022);
+INSERT INTO vendor_stock VALUES ('product-017', '004', 10, 15/02/2022);
+INSERT INTO vendor_stock VALUES ('product-018', '001', 40, 01/03/2022);
+INSERT INTO vendor_stock VALUES ('product-019', '002', 30, 02/03/2022);
+INSERT INTO vendor_stock VALUES ('product-020', '003', 20, 26/02/2022);
+INSERT INTO vendor_stock VALUES ('product-021', '004', 15, 13/03/2022);
+INSERT INTO vendor_stock VALUES ('product-010', '001', 22, 12/02/2022);
+INSERT INTO vendor_stock VALUES ('product-011', '002', 22, 12/02/2022);
+INSERT INTO vendor_stock VALUES ('product-012', '003', 22, 12/02/2022);
+INSERT INTO vendor_stock VALUES ('product-013', '004', 22, 12/02/2022);
+
+
+
+

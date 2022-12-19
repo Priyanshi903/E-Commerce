@@ -1,0 +1,10 @@
+content_assist_lru_history=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><history maxLHS\="100" maxRHS\="10"><lhs name\="com.cognizant.model.Cart"><rhs name\="com.cognizant.model.Cart"/></lhs><lhs name\="com.cognizant.dto.UserCartDto"><rhs name\="com.cognizant.dto.UserCartDto"/></lhs><lhs name\="com.cognizant.model.Vendor"><rhs name\="com.cognizant.model.Vendor"/></lhs><lhs name\="java.util.Collection"><rhs name\="java.util.ArrayList"/></lhs><lhs name\="java.lang.Iterable"><rhs name\="java.util.ArrayList"/></lhs><lhs name\="java.util.List"><rhs name\="java.util.ArrayList"/></lhs><lhs name\="com.cognizant.dto.CartResponseDto"><rhs name\="com.cognizant.dto.CartResponseDto"/></lhs><lhs name\="com.cognizant.model.CustomerWishlist"><rhs name\="com.cognizant.model.CustomerWishlist"/></lhs><lhs name\="java.lang.Cloneable"><rhs name\="java.util.Date"/></lhs><lhs name\="java.util.Date"><rhs name\="java.util.Date"/></lhs><lhs name\="com.cognizant.dto.CustomerWishlistResponseDto"><rhs name\="com.cognizant.dto.CustomerWishlistResponseDto"/></lhs><lhs name\="com.cognizant.model.VendorStock"><rhs name\="com.cognizant.model.VendorStock"/></lhs></history>
+content_assist_number_of_computers=15
+content_assist_proposals_background=255,255,255
+content_assist_proposals_foreground=0,0,0
+eclipse.preferences.version=1
+org.eclipse.jdt.ui.formatterprofiles.version=21
+spelling_locale_initialized=true
+typefilter_migrated_2=true
+useAnnotationsPrefPage=true
+useQuickDiffPrefPage=true
