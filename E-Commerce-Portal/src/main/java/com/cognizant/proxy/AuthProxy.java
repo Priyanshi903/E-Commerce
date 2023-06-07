@@ -13,7 +13,7 @@ import com.cognizant.dto.UserCredentials;
 
 
 //@FeignClient(name = "authorization-service", url="http://13.57.30.36:8081/auth")
-@FeignClient(name = "authorization-service", url="http://localhost:8081/auth")
+@FeignClient(name = "authorization-service", url="http://localhost:8087/auth")
 public interface AuthProxy {
 
 	

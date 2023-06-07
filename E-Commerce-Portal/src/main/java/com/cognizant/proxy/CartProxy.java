@@ -20,7 +20,7 @@ import com.cognizant.dto.CustomerWishListRequestDTO;
 import com.cognizant.dto.CustomerWishlistResponseDto;
 
 //@FeignClient(name = "cart-rest-api",url="http://54.67.94.211:8083")
-@FeignClient(name = "cart-rest-api",url="http://localhost:8083")
+@FeignClient(name = "cart-rest-api",url="http://localhost:8090")
 public interface CartProxy {
 
 @GetMapping("cart/{customerId}")

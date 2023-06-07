@@ -11,7 +11,7 @@ import com.cognizant.bean.Product;
 
 
 //@FeignClient(name = "product-rest-api", url="http://54.153.120.110:8080")
-@FeignClient(name = "product-rest-api", url="http://localhost:9000")
+@FeignClient(name = "product-rest-api", url="http://localhost:8081")
 public interface ProductProxy {
 
 	@GetMapping("/product")
@@ -23,7 +23,7 @@ public interface ProductProxy {
 	@GetMapping("/product/searchProductByName/{productName}")
 	public List<Product> searchProductByname(@PathVariable String productName);
 	
-	@PostMapping("/product/addProductRating/{productId}/{rating}")
+	@PostMapping("/addProductRating/{productId}/{rating}")
 	public boolean addProductRating(@PathVariable String productId,@PathVariable int rating);
 	
 }

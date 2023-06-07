@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.cognizant.exception.ProductNotFoundException;
 import com.cognizant.model.Product;
 
-@FeignClient(name = "product-rest-api",url = "http://localhost:9000")
+@FeignClient(name = "product-rest-api",url = "http://localhost:8081")
 public interface ProductProxy {
 	
 	@GetMapping("/product/searchProductById/{productId}")

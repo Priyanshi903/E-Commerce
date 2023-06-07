@@ -2,6 +2,7 @@
 <section name="Workbench">
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="C:\Training\pod\Vendor-Rest"/>
 			<item value="C:\Training\pod\Product"/>
 			<item value="C:\pod\AuthorizationService"/>
 			<item value="C:\pod\E-Commerce-Portal"/>

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.cognizant.model.Vendor;
 
-@FeignClient(name = "vendor-rest-api", url = "http://localhost:8086")
+@FeignClient(name = "vendor-rest-api", url = "http://localhost:8091")
 public interface VendorProxy {
 
 	@GetMapping("vendor/{vendor_id}")

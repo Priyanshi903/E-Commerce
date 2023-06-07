@@ -29,6 +29,11 @@ public class CustomerController implements ErrorController {
 
 	@Autowired
 	private AuthProxy authProxy;
+	
+//	@GetMapping("/")
+//	public String getHomePage() {
+//		return "hello";
+//	}
 
 	@GetMapping("/")
 	public String getHomePage(Model model, HttpServletRequest session) {
